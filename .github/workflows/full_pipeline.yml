@@ -1,0 +1,35 @@
+name: Run Full Data Pipeline
+
+on:
+  workflow_dispatch:
+
+jobs:
+  pipeline:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.10
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Run Data Cleaning Notebooks
+        run: |
+          jupyter nbconvert --to notebook --execute notebook/Data-Cleaning/All_Product_API_Data_Cleaning.ipynb
+          jupyter nbconvert --to notebook --execute notebook/Data-Cleaning/Ulta_API_Data_Cleaning.ipynb
+
+      - name: Run Data Loading Notebook
+        run: |
+          jupyter nbconvert --to notebook --execute notebook/Data-Loading/RDS_Setup_and_Load_Data.ipynb
+
+      - name: Run Data Retrieval Notebooks
+        run: |
+          jupyter nbconvert --to notebook --execute notebook/Data-Retrieval/All_Web_SQL_Analysis.ipynb
+          jupyter nbconvert --to notebook --execute notebook/Data-Retrieval/Ulta_Web_Scrape_SQL_Analysis.ipynb
