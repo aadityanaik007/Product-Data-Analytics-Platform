@@ -111,6 +111,14 @@ jupyter nbconvert --to notebook --execute notebook/Data-Retrieval/Ulta_Web_Scrap
 
 ---
 
+OR
+
+### 3. Run the .bat file
+
+'''
+./run_all.bat
+'''
+
 ## 🔮 Future Improvements
 
 - Add NLP sentiment analysis on `review_text` using HuggingFace or TextBlob
